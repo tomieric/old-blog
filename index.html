@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="airpub" ng-controller="global">
+  <head ng-controller="meta">
+    <base href="/" />
+    <meta charset="UTF-8">
+    <title ng-bind="title"></title>
+    <meta name="fragment" content="!" />
+    <meta name="description" content="{{description}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- dependencies stylesheets and scripts -->
+    <link rel="stylesheet" href="http://cdn.airpub.io/0.4.0-unstable/airpub-dependencies.min.css?v=0.4.0_2">
+    <script src="http://cdn.airpub.io/0.4.0-unstable/airpub-dependencies.min.js?v=0.4.0_2"></script>
+    <!-- default theme: chill -->
+    <link rel="stylesheet" href="themes/chill/0.3.0/css/chill.min.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body ng-controller="base" ng-class="state.current.controller">
+    <div ui-view="layout"></div>
+    <script>
+      var airpubConfigs = {
+        name: '前端 - 分享园', // blog name        
+        description: '前端|css|html5|css3|jquery|javascript|nodejs|angular|angularjs|backbone|移动开发', // just a little description
+        url: 'http://getf2e.com', // blog uri
+        theme: 'chill/0.3.0', // current theme
+        themePath: 'themes', // theme Path
+        staticPath: 'http://cdn.airpub.io/', // static file path
+        upyun: { // for images upload
+          bucket: 'getf2e',
+          form_api_secret: 'WYmiNqFWGcfngZWXzQi6c4IAl'
+        }
+      };
+      var duoshuoQuery = {
+        short_name: 'getf2e' // for backend service
+      };
+      
+    </script>
+    <script src="http://static.duoshuo.com/embed.js"></script> 
+    <script src="http://cdn.airpub.io/0.4.0-unstable/airpub.min.js?v=0.4.0_2"></script>
+    <!-- gotop -->
+    <script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="static/scrollTop/scrollTop.js"></script>
+  </body>
+</html>
