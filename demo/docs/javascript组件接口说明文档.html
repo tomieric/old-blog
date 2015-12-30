@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript组件接口说明文档.md</title>
+    <meta name="keywords" content="frontui">
+    <meta name="description" content="使用frontui document">
+    <meta name="author" content="Frontpay FED Team.">
+    <meta name="copyright" content="版权归www.frontpay.cn钱途互联所有">
+    <link rel="stylesheet" href="style/style.css">
+    <!--<base target="_blank">-->
+</head>
+<body>
+    <div class="menu">
+        <h2>目录</h2>
+        <ul id="menu">
+            <li><a href="#概述">概述</a></li>
+<li><a href="#tap 代替 click">tap 代替 click</a></li>
+<li><a href="#模板引擎template">模板引擎template</a></li>
+<li><a href="#搜索框(searchBar)">搜索框(searchBar)</a></li>
+<li><a href="#面板(panel)">面板(panel)</a></li>
+<li><a href="#选项卡(tab)">选项卡(tab)</a></li>
+<li><a href="#加载层(Loading)">加载层(Loading)</a></li>
+<li><a href="#弹出层(Dialog)">弹出层(Dialog)</a></li>
+<li><a href="#表单验证">表单验证</a></li>
+        </ul>
+    </div>
+
+
+    <a href="#" class="goTop">↑</a>
+
+    <div class="markdown-body">
+        <h1 id="javascript-">JavaScript&#x7EC4;&#x4EF6;&#x63A5;&#x53E3;&#x8BF4;&#x660E;&#x6587;&#x6863;</h1>
+<h2 id="&#x6982;&#x8FF0;"><a class="anchor" href="#&#x6982;&#x8FF0;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x6982;&#x8FF0;</h2>
+<p>E+&#x8D26;&#x6237;&#x79FB;&#x52A8;&#x7AEF;&#x5728;JavaScript&#x67B6;&#x6784;&#x4E0A;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>requirejs</code>&#x6A21;&#x5757;&#x5316;&#x7BA1;&#x7406;&#x6846;&#x67B6;&#x3002;&#x6240;&#x5C5E;&#x6A21;&#x5757;&#x9700;&#x6309;<code>AMD</code>&#x65B9;&#x5F0F;&#x5C01;&#x88C5;&#x3002;&#x5728;<code>DOM</code>&#x64CD;&#x4F5C;&#x5E93;&#x4E0A;&#x9009;&#x62E9;&#x7684;&#x662F;<code>zepto</code>&#xFF0C;&#x5F31;&#x5316;(ji)&#x7248;<code>jQuery</code></p>
+<p><a href="http://zeptojs.com/">http://zeptojs.com/</a></p>
+<p><a href="http://requirejs.org/">http://requirejs.org/</a></p>
+<h3 id="amd&#x89C4;&#x8303;"><a class="anchor" href="#amd&#x89C4;&#x8303;" aria-hidden="true"><span class="octicon octicon-link"></span></a>amd&#x89C4;&#x8303;</h3>
+<h4 id="&#x5B9A;&#x4E49;"><a class="anchor" href="#&#x5B9A;&#x4E49;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x5B9A;&#x4E49;</h4>
+<pre><code>// &#x6A21;&#x5757;
+// define(id, deps, factory)
+// * `id` &#x6A21;&#x5757;id
+// * `deps` &#x4F9D;&#x8D56;&#x6A21;&#x5757;
+// * `factory` &#x6A21;&#x5757;&#x51FD;&#x6570;
+
+define(&apos;components/tab&apos;, [&apos;zepto&apos;], function($){
+  $.fn.tab = function() {
+    $(this).on(&apos;tap&apos;, function() {
+        // ...
+    })
+  }
+})
+</code></pre><h4 id="&#x4F7F;&#x7528;&#x6A21;&#x5757;"><a class="anchor" href="#&#x4F7F;&#x7528;&#x6A21;&#x5757;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x4F7F;&#x7528;&#x6A21;&#x5757;</h4>
+<pre><code>// require([&#x6A21;&#x5757;1id, &#x6A21;&#x5757;2id], callback)
+
+require([&apos;zepto&apos;,&apos;components/tab&apos;], function($, Tab) {
+  $(function(){
+      $(&apos;.tab&apos;).tab();
+ })
+})
+</code></pre><h2 id="tap &#x4EE3;&#x66FF; click"><a class="anchor" href="#tap &#x4EE3;&#x66FF; click" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>tap</code> &#x4EE3;&#x66FF; <code>click</code></h2>
+<p>&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x7528; <code>tap</code> &#x4E8B;&#x4EF6;&#x53EF;&#x4EE5;&#x907F;&#x514D; <code>click</code> &#x7684; <code>300ms</code> &#x5EF6;&#x8FDF;&#x3002;</p>
+<pre><code>require([&apos;zepto&apos;], function($) {
+    $(&apos;#btn&apos;).on(&apos;tap&apos;, function() {
+        // ...
+    })
+})
+</code></pre><h2 id="&#x6A21;&#x677F;&#x5F15;&#x64CE;template"><a class="anchor" href="#&#x6A21;&#x677F;&#x5F15;&#x64CE;template" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x6A21;&#x677F;&#x5F15;&#x64CE;template</h2>
+<p><strong> &#x6A21;&#x5757;id </strong>
+<code>template</code></p>
+<p><strong> &#x4F7F;&#x7528; </strong></p>
+<pre><code>require([&apos;template&apos;], function(Template) {
+    var myTemplate = &apos;&lt;%=content%&gt;&apos;;
+    var content = Template(myTemplate, {content: &apos;Hello World&apos;})
+    alert(content);
+})
+</code></pre><p><strong> &#x53C2;&#x6570;&#x914D;&#x7F6E; </strong></p>
+<ul>
+<li><code>tplString</code> &#x6A21;&#x677F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x6D3B;&#x52A8;dom&#x5143;&#x7D20;id</li>
+<li><code>data</code>      &#x586B;&#x5145;json&#x6570;&#x636E;</li>
+<li><code>settings</code>  &#x4E0A;&#x4E0B;&#x6587;&#x4F5C;&#x7528;&#x57DF;</li>
+</ul>
+<p>&#x6A21;&#x677F;&#x5F15;&#x64CE;&#x4E0E; backbone.js &#x7684;&#x6A21;&#x677F;&#x5F15;&#x64CE;&#x7C7B;&#x4F3C;&#xFF0C;&#x4F7F;&#x7528; <code>$.tpl(tplString, [data], [settings])</code> &#x6765;&#x8C03;&#x7528;&#x3002;</p>
+<p>&#x6A21;&#x677F;&#x53D8;&#x91CF;&#x653E;&#x5165;<code>&lt;%= value %&gt;</code>&#x4E2D;&#xFF0C;&#x5982;<code>&lt;%= value %&gt;</code>&#xFF0C;&#x6A21;&#x677F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x628A;js&#x903B;&#x8F91;&#x653E;&#x5165;<code>&lt;% ... %&gt;</code>&#x4E2D;&#xFF0C;&#x5982;<code>&lt;% if(a){&gt;%</code> &#x6761;&#x4EF6;&#x4E3A;<code>ture</code>&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x4F1A;&#x8F93;&#x51FA; <code>&lt;%}%&gt;</code>&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x8C03;&#x7528;&#x65B9;&#x5F0F;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code># js
+require([&apos;template&apos;, &apos;zepto&apos;], function(template, $) {
+  var data = [
+    {title: &apos;apple&apos;, amount: 1},
+    {title: &apos;orange&apos;, amount: 2}
+  ];
+  var content = template(document.getElementById(&apos;j-tmpl&apos;).innerHTML, {list: data});
+  $(&apos;#test&apos;).html(content);
+})
+
+# html
+&lt;script type=&quot;text/html&quot; id=&quot;j-tmpl&quot;&gt;
+  &lt;ul&gt;
+     &lt;% for(var i= 0; i &lt; list.length; i++ ){%&gt;
+       &lt;li&gt;&lt;%= list[i].title %&gt;&lt;/li&gt;
+     &lt;% } %&gt;
+  &lt;/ul&gt;
+&lt;/script&gt;
+</code></pre><p><strong> &#x5B57;&#x7B26;&#x4E32;&#x53D8;&#x91CF;&#x6A21;&#x677F; </strong></p>
+<pre><code>var data={
+    name:&quot;jeakey&quot;,
+    word:&quot;hi~&quot;,
+    friend:[
+        &quot;hahn&quot;,
+        &quot;fay&quot;
+    ]
+}
+
+var tplHTML=&apos;&lt;div&gt;&lt;%=name%&gt; say &lt;%=word%&gt;&#x3002;&lt;/div&gt;&apos;+
+            &apos;&lt;div&gt;his friends:&lt;ul&gt;&apos;+
+            &apos;&lt;% for(var i=0;i&lt;friend.length;i++){ %&gt;&apos;+
+            &apos;&lt;li&gt;&lt;%=friend[i]%&gt;&lt;/li&gt;&apos;+
+            &apos;&lt;% } %&gt;&lt;/ul&gt;&lt;/div&gt;&apos;;
+
+var dest=$.tpl(tplHTML,data);
+console.log(dest)
+// output&#xFF1A;&lt;div&gt;jeakey say hi~&#x3002;&lt;/div&gt;&lt;div&gt;his friends:&lt;ul&gt;&lt;li&gt;hahn&lt;/li&gt;&lt;li&gt;fay&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+</code></pre><h2 id="&#x641C;&#x7D22;&#x6846;(searchBar)"><a class="anchor" href="#&#x641C;&#x7D22;&#x6846;(searchBar)" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x641C;&#x7D22;&#x6846;(searchBar)</h2>
+<p><strong> &#x6A21;&#x5757;id </strong></p>
+<p><code>components/searchBar</code></p>
+<p><strong> html&#x7ED3;&#x6784; </strong></p>
+<pre><code>&lt;div class=&quot;searchbar&quot;&gt;
+  &lt;input type=&quot;search&quot; id=&quot;{{id}}&quot;  data-toggle=&quot;searchbar&quot; name=&quot;search&quot; value=&quot;&quot; class=&quot;searchbar-control&quot; autocomplete=&quot;off&quot;&gt;
+  &lt;label for=&quot;{{id}}&quot; class=&quot;searchbar-control-label&quot;&gt;
+    &lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;{{placeholder}}&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;
+</code></pre><p>&#x5728;&#x641C;&#x7D22;&#x6587;&#x672C;&#x6846;&#x589E;&#x52A0; <code>data-toggle=&quot;searchbar&quot;</code>&#x5C5E;&#x6027;,&#x9ED8;&#x8BA4;&#x5168;&#x5C40;&#x7ED1;&#x5B9A;&#x8BE5;&#x63D2;&#x4EF6;&#x3002;</p>
+<h2 id="&#x9762;&#x677F;(panel)"><a class="anchor" href="#&#x9762;&#x677F;(panel)" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x9762;&#x677F;(panel)</h2>
+<p><strong> &#x6A21;&#x5757;id </strong></p>
+<p><code>components/panel</code></p>
+<p><strong> &#x4F7F;&#x7528; </strong></p>
+<pre><code>require([&apos;components/panel&apos;], function(Panel) {
+    $(&apos;.panel&apos;).panel();
+    // new Panel(el, option)
+})
+</code></pre><p>&#x9762;&#x677F;&#x4E3B;&#x8981;&#x662F;&#x505A;&#x5C55;&#x793A;&#x66F4;&#x591A;&#x5185;&#x5BB9;&#x7684;&#x4EA4;&#x4E92;&#x529F;&#x80FD;&#x3002;&#x9ED8;&#x8BA4;&#x7ED1;&#x5B9A;<code>.panel</code>&#x7C7B;&#x5143;&#x7D20;&#x3002;</p>
+<p><strong> &#x53C2;&#x6570;&#x914D;&#x7F6E; </strong></p>
+<ul>
+<li><code>trigger(.panel-btn)</code> &#x89E6;&#x53D1;&#x5143;&#x7D20;</li>
+<li><code>active(show)</code>  &#x70B9;&#x51FB;&#x6FC0;&#x6D3B;&#x5C55;&#x5F00;&#x6837;&#x5F0F;</li>
+<li><code>callback(true|false)</code> &#x5C55;&#x5F00;&#x6216;&#x6536;&#x8D77;&#x56DE;&#x8C03;</li>
+</ul>
+<p><strong> js&#x8C03;&#x7528; </strong></p>
+<pre><code>$(&apos;#test&apos;).panel({
+    trigger: &apos;.trigger&apos;,
+    active: &apos;active&apos;,
+    callback: function(isShown) {
+      alert(isShown)
+    }
+});
+</code></pre><p><strong> demo </strong></p>
+<pre><code>&lt;div class=&quot;panel&quot;&gt;
+    &lt;div class=&quot;panel-title&quot;&gt;
+        &lt;span class=&quot;heading-FontColor&quot;&gt;&#x5927;&#x7586;&#x65E0;&#x4EBA;&#x673A;2321&#x578B;&#x53F7; &#x9ED1;&#x8272;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;panel-btn&quot;&gt;
+        &lt;a href=&quot;#&quot; class=&quot;link-standard&quot;&gt;&#x8BE6;&#x60C5;&lt;/a&gt;
+        &lt;span&gt;&lt;i class=&quot;icon-chevron-thin-down&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;panel-cnt&quot;&gt;
+        &lt;dl class=&quot;panel-table heading-FontColor border-t&quot;&gt;
+           &lt;dt&gt;&#x8BA2;&#x5355;&#x53F7;&#xFF1A;20151029210&lt;/dt&gt;
+           &lt;dd&gt;&#x5546;&#x5BB6;&#xFF1A;&#x4E00;&#x53F7;&#x5E97;&lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;dl class=&quot;panel-table heading-FontColor border-t pdb0 fs-20&quot;&gt;
+            &lt;dt&gt;
+                Apple iphone 6 Plus(A1524)16GB
+                &#x91D1;&#x8272; &#x79FB;&#x52A8;&#x8054;&#x901A;&#x7535;&#x4FE1;4G&#x624B;&#x673A;
+            &lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;em&gt;&#xFFE5;100.00&lt;/em&gt;
+                &lt;span class=&quot;viceText-FontColor&quot;&gt;&#xD7;1&lt;/span&gt;
+            &lt;/dd&gt;
+            &lt;dt&gt;
+                Apple iphone 6 Plus(A1524)16GB
+                &#x91D1;&#x8272; &#x79FB;&#x52A8;&#x8054;&#x901A;&#x7535;&#x4FE1;4G&#x624B;&#x673A;
+            &lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;em&gt;&#xFFE5;100.00&lt;/em&gt;
+                &lt;span class=&quot;viceText-FontColor&quot;&gt;&#xD7;1&lt;/span&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h2 id="&#x9009;&#x9879;&#x5361;(tab)"><a class="anchor" href="#&#x9009;&#x9879;&#x5361;(tab)" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x9009;&#x9879;&#x5361;(tab)</h2>
+<p><strong> &#x6A21;&#x5757;id </strong></p>
+<p><code>components/tab</code></p>
+<p><strong> &#x7528;&#x6CD5; </strong></p>
+<pre><code>require([&apos;components/tab&apos;], function(Tab) {
+    $(&apos;.tab&apos;).tab()
+})
+</code></pre><p>&#x9009;&#x9879;&#x4E3B;&#x8981;&#x662F;&#x505A;&#x5F53;&#x524D;&#x9875;&#x9762;&#x591A;&#x4E2A;&#x5185;&#x5BB9;&#x5207;&#x6362;&#x7684;&#x4EA4;&#x4E92;&#x529F;&#x80FD;&#x3002;&#x9ED8;&#x8BA4;&#x7ED1;&#x5B9A;<code>.tab</code>&#x7C7B;&#x5143;&#x7D20;&#x3002;</p>
+<p><strong> &#x53C2;&#x6570;&#x914D;&#x7F6E; </strong></p>
+<ul>
+<li><code>nav(.tab-nav)</code> &#x5207;&#x6362;&#x5BFC;&#x822A;&#x5143;&#x7D20;</li>
+<li><code>navItem(li)</code>  &#x5207;&#x6362;&#x5BFC;&#x822A;&#x9879;</li>
+<li><code>content(.tab-content)</code> &#x5185;&#x5BB9;&#x5BB9;&#x5668;</li>
+<li><code>item(li)</code> &#x5185;&#x5BB9;&#x9879;</li>
+<li><code>callback(function(index))</code> &#x56DE;&#x8C03;</li>
+</ul>
+<p><strong> js&#x8C03;&#x7528; </strong></p>
+<pre><code>$(&apos;#test&apos;).tab({
+    nav: &apos;.nav&apos;,
+    navItem: &apos;.nav-item&apos;,
+    content: &apos;.content&apos;,
+    item: &apos;.content-item&apos;,
+    callback: function(index) {
+      // index &#x5F53;&#x524D;&#x7D22;&#x5F15;
+      // this&#x6307;&#x5411;&#x5F53;&#x524D;&#x63D2;&#x4EF6;&#x5B9E;&#x4F8B;
+      // this.$el =&gt; $(&apos;#test&apos;)
+      // this.$nav =&gt; $(&apos;#test&apos;).find(&apos;.nav-item&apos;)
+      // this.$navItem =&gt; $(&apos;#test&apos;).find(&apos;.nav-item&apos;)
+      // this.$content =&gt; $(&apos;#test&apos;).find(&apos;.content&apos;)
+      // this.$item =&gt; $(&apos;#test&apos;).find(&apos;.content-item&apos;)
+    }
+});
+</code></pre><p><strong> demo </strong></p>
+<pre><code>&lt;div class=&quot;tab&quot; id=&quot;demo&quot;&gt;
+    &lt;ul class=&quot;tab-nav&quot;&gt;
+        &lt;li class=&quot;current&quot;&gt;&#x6700;&#x8FD1;&#x4E09;&#x4E2A;&#x6708;&lt;/li&gt;
+        &lt;li&gt;&#x4E09;&#x4E2A;&#x6708;&#x524D;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul class=&quot;tab-content&quot;&gt;
+        &lt;li class=&quot;current&quot;&gt;
+            &lt;ul class=&quot;list&quot;&gt;
+                &lt;li&gt;
+                    &lt;div class=&quot;list-info&quot;&gt;
+                        &lt;h5&gt;&#x62DB;&#x5546;&#x94F6;&#x884C;&#x4E28;&#x5C3E;&#x53F7;1233&lt;/h5&gt;
+                        &lt;p&gt;2015-11-16  13:52:40&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;list-bar&quot;&gt;
+                        +50.00&#x5143;
+                    &lt;/div&gt;
+                &lt;/li&gt;
+                &lt;li&gt;2222222&lt;/li&gt;
+                &lt;li&gt;333333&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;ul class=&quot;list list-link&quot;&gt;
+                &lt;li&gt;111111&lt;/li&gt;
+                &lt;li&gt;2222222&lt;/li&gt;
+                &lt;li&gt;333333&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><p><strong> &#x4F7F;&#x7528;&#x63A5;&#x53E3; </strong></p>
+<pre><code>require([&apos;components/tab&apos;], function(Tab) {
+     // &#x5207;&#x6362;&#x5230;&#x7B2C;&#x4E8C;&#x9009;&#x9879;
+     $(&apos;#demo&apos;).tab(&apos;active&apos;, 1)
+ });
+</code></pre><h2 id="&#x52A0;&#x8F7D;&#x5C42;(Loading)"><a class="anchor" href="#&#x52A0;&#x8F7D;&#x5C42;(Loading)" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x52A0;&#x8F7D;&#x5C42;(Loading)</h2>
+<p><strong> &#x6A21;&#x5757;id </strong></p>
+<p><code>components/loading</code></p>
+<p><strong> &#x7528;&#x6CD5; </strong></p>
+<pre><code>require([&apos;components/loading&apos;], function(Loading) {
+    $.loading({content: &apos;Loading...&apos;});
+    // $.dialog(&apos;hide&apos;)
+})
+</code></pre><p><strong> &#x53C2;&#x6570;&#x914D;&#x7F6E; </strong></p>
+<ul>
+<li><code>content</code> &#x63D0;&#x793A;&#x6587;&#x5B57;</li>
+</ul>
+<p><strong> &#x8C03;&#x7528; </strong></p>
+<pre><code>$.loading({content: &apos;Loading...&apos;})
+</code></pre><p>&#x5E26;<code>id</code>&#x6807;&#x8BC6;</p>
+<pre><code>$(&apos;#loading&apos;).loading({content: &apos;Loading&apos;})
+</code></pre><p><strong> &#x65B9;&#x6CD5; </strong></p>
+<pre><code>require([&apos;components/loading&apos;], function(Loading) {
+  // &#x663E;&#x793A;
+  var Loading = $.loading(&apos;show&apos;)
+  // &#x9690;&#x85CF;
+  Loading.loading(&apos;hide&apos;)
+})
+</code></pre><h2 id="&#x5F39;&#x51FA;&#x5C42;(Dialog)"><a class="anchor" href="#&#x5F39;&#x51FA;&#x5C42;(Dialog)" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x5F39;&#x51FA;&#x5C42;(Dialog)</h2>
+<p><strong> &#x6A21;&#x5757;id </strong></p>
+<p><code>components/dialog</code></p>
+<p><strong> &#x7528;&#x6CD5; </strong></p>
+<pre><code>require([&apos;components/dialog&apos;], function(Dialog) {
+  // var el = $.dialog({content: &apos;xxxx&apos;});
+  // el.dialog(&apos;hide&apos;);
+  // el.dialog(&apos;show&apos;);
+
+  // 1. $.dialog(option)
+  // 2. $(&apos;&lt;div&gt;&lt;%=content%&gt;&lt;/div&gt;&apos;).dialog(options);
+  // 3. $(&apos;#id&apos;).dialog();
+})
+</code></pre><p><strong> &#x53C2;&#x6570;&#x914D;&#x7F6E; </strong></p>
+<ul>
+<li><code>title</code> &#x63D0;&#x793A;&#x6807;&#x9898;</li>
+<li><code>content</code> &#x63D0;&#x793A;&#x5185;&#x5BB9;</li>
+<li><code>button(array|[&apos;&#x786E;&#x5B9A;&apos;])</code> &#x6309;&#x94AE;&#x7EC4;</li>
+<li><code>allowScroll</code> &#x8DDF;&#x968F;&#x6EDA;&#x52A8;&#x6761;&#x6EDA;&#x52A8;</li>
+</ul>
+<p><strong> &#x5F39;&#x51FA;&#x9875;&#x9762;&#x5143;&#x7D20; </strong></p>
+<p>html:</p>
+<pre><code>&lt;div class=&quot;dialog&quot; id=&quot;dialog&quot;&gt;
+    &lt;div class=&quot;dialog-cnt&quot;&gt;
+        &lt;div class=&quot;dialog-bd simselect&quot;&gt;
+            &lt;h4&gt;title&lt;/h4&gt;
+            &lt;div&gt;xxxx&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;dialog-ft btn-group&quot;&gt;
+            &lt;button class=&quot;btn&quot; role=&quot;button&quot; type=&quot;button&quot;&gt;&#x786E;&#x5B9A;&lt;/button&gt;
+            &lt;button class=&quot;btn&quot; role=&quot;button&quot; type=&quot;button&quot;&gt;&#x53D6;&#x6D88;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>JavaScript:</p>
+<pre><code>require([&apos;components/dialog&apos;], function(Dialog) {
+        $(&apos;#dialog&apos;).dialog(&apos;show&apos;);
+});
+</code></pre><p><strong> &#x81EA;&#x5B9A;&#x4E49;&#x5F39;&#x5C42; </strong></p>
+<pre><code>require([&apos;components/dialog&apos;], function(Dialog) {
+    var dialog = $.dialog({
+        title: &apos;&#x6E29;&#x99A8;&#x63D0;&#x793A;&apos;,
+        content: &apos;&#x5185;&#x5BB9;&apos;,
+        button: [&apos;&#x786E;&#x5B9A;&apos;, &apos;&#x53D6;&#x6D88;&apos;]
+    });
+});
+</code></pre><p><strong> &#x65B9;&#x6CD5;&#x63A5;&#x53E3; </strong></p>
+<p><code>show</code></p>
+<p>&#x663E;&#x793A;&#x5BF9;&#x8BDD;&#x6846;</p>
+<pre><code>$(&apos;#test&apos;).dialog(&apos;show&apos;);
+</code></pre><p><code>hide</code></p>
+<p>&#x9690;&#x85CF;&#x5BF9;&#x8BDD;&#x6846;</p>
+<pre><code>$(&apos;#test&apos;).dialog(&apos;hide&apos;);
+</code></pre><p><code>dialog:action</code></p>
+<p>&#x76D1;&#x542C;&#x7528;&#x6237;&#x70B9;&#x51FB;&#x4E86;&#x67D0;&#x4E2A;&#x6309;&#x94AE;, &#x4ECE;&#x4E8B;&#x4EF6;&#x4E2D;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;<code>index</code>&#x548C;&#x5F53;&#x524D;&#x70B9;&#x4E2D;&#x5143;&#x7D20;<code>relateTarget</code></p>
+<pre><code>$(&apos;#test&apos;).on(&apos;dialog:action&apos;, function(e) {
+    // &#x83B7;&#x53D6;&#x7D22;&#x5F15;
+    var index = e.index;
+    // &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x70B9;&#x4E2D;&#x5143;&#x7D20;
+    var that = $(e.relateTarget);
+})
+</code></pre><p><code>dialog:show</code></p>
+<p>&#x76D1;&#x542C;&#x5F39;&#x5C42;&#x663E;&#x793A;&#x4E8B;&#x4EF6;</p>
+<pre><code>$(&apos;#test&apos;).on(&apos;dialog:show&apos;, function(e) {
+    alert(&apos;&#x663E;&#x793A;&apos;);
+})
+</code></pre><p><code>dialog:show</code></p>
+<p>&#x76D1;&#x542C;&#x5F39;&#x5C42;&#x9690;&#x85CF;&#x4E8B;&#x4EF6;</p>
+<pre><code>$(&apos;#test&apos;).on(&apos;dialog:hide&apos;, function(e) {
+    alert(&apos;&#x9690;&#x85CF;&apos;);
+})
+</code></pre><h2 id="&#x8868;&#x5355;&#x9A8C;&#x8BC1;"><a class="anchor" href="#&#x8868;&#x5355;&#x9A8C;&#x8BC1;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x8868;&#x5355;&#x9A8C;&#x8BC1;</h2>
+<p><strong> &#x6A21;&#x5757;id </strong></p>
+<p><code>components/validator</code></p>
+<p><strong> &#x7528;&#x6CD5; </strong></p>
+<pre><code>require([&apos;components/validator&apos;], function(Validator) {
+    $(&apos;#j-validate-form&apos;).validator();
+})
+</code></pre><h3 id="&#x76EE;&#x5F55;"><a class="anchor" href="#&#x76EE;&#x5F55;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x76EE;&#x5F55;</h3>
+<ul>
+<li><a href="#&#x7279;&#x6027;">&#x7279;&#x6027;</a></li>
+<li><a href="#&#x8C03;&#x7528;&#x65B9;&#x5F0F;">&#x8C03;&#x7528;&#x65B9;&#x5F0F;</a></li>
+<li><a href="#&#x53C2;&#x6570;">&#x53C2;&#x6570;</a></li>
+<li><a href="#&#x62D3;&#x5C55;&#x65B9;&#x6CD5;">&#x62D3;&#x5C55;&#x65B9;&#x6CD5;</a></li>
+</ul>
+<h4 id="&#x7279;&#x6027;"><a class="anchor" href="#&#x7279;&#x6027;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x7279;&#x6027;</h4>
+<ol>
+<li>&#x901A;&#x8FC7; data-* &#x7684;&#x65B9;&#x5F0F;&#x6765;&#x6765;&#x51B3;&#x5B9A;&#x8868;&#x5355;&#x662F;&#x5426;&#x9700;&#x8981;&#x9A8C;&#x8BC1;,&#x9A8C;&#x8BC1;&#x7C7B;&#x578B;</li>
+<li>&#x901A;&#x8FC7; mvalidateExtend &#x65B9;&#x6CD5;&#x63D0;&#x4F9B;&#x81EA;&#x5B9A;&#x4E49;&#x62D3;&#x5C55;&#x9A8C;&#x8BC1;&#x65B9;&#x5F0F;</li>
+<li>&#x4E0D;&#x540C;&#x4E8E;&#x5176;&#x4ED6;&#x7684;&#x8868;&#x5355;&#x9A8C;&#x8BC1;,&#x8BE5;&#x63A7;&#x4EF6;&#x5728;&#x7528;&#x6237;&#x521D;&#x6B21;&#x8F93;&#x5165;&#x7684;&#x65F6;&#x5019;(keyup&#x4E8B;&#x4EF6;)&#x662F;&#x4E0D;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x7684;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x65B9;&#x5F0F;&#x66F4;&#x7B26;&#x5408;&#x7528;&#x6237;&#x7684;&#x4F7F;&#x7528;&#x4E60;&#x60EF;</li>
+</ol>
+<h4 id="&#x8C03;&#x7528;&#x65B9;&#x5F0F;"><a class="anchor" href="#&#x8C03;&#x7528;&#x65B9;&#x5F0F;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x8C03;&#x7528;&#x65B9;&#x5F0F;</h4>
+<pre>
+$(form).validator({
+    type:1,
+    validateInSubmit:true
+})
+</pre>
+
+<h4 id="&#x53C2;&#x6570;"><a class="anchor" href="#&#x53C2;&#x6570;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x53C2;&#x6570;</h4>
+<table>
+<thead>
+<tr>
+<th>&#x53C2;&#x6570;</th>
+<th>&#x7C7B;&#x578B;</th>
+<th>&#x63CF;&#x8FF0;</th>
+<th>&#x9ED8;&#x8BA4;&#x503C;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>Number</td>
+<td>&#x9A8C;&#x8BC1;&#x7C7B;&#x578B;,&#x7C7B;&#x578B;1&#xFF1A;&#x5F39;&#x51FA;&#x63D0;&#x793A;&#x4FE1;&#x606F;&#xFF0C;&#x7C7B;&#x578B;2&#xFF1A;&#x672A;&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#x7684;&#x8868;&#x5355;&#x4E0B;&#x9762;&#x663E;&#x793A;&#x63D0;&#x793A;&#x6587;&#x5B57;</td>
+<td>1</td>
+</tr>
+<tr>
+<td>validateInSubmit</td>
+<td>Boolean</td>
+<td>&#x70B9;&#x51FB;&quot;&#x63D0;&#x4EA4;&quot;&#x6309;&#x94AE;&#x7684;&#x65F6;&#x5019;&#x662F;&#x5426;&#x8981;&#x5BF9;&#x8868;&#x5355;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;</td>
+<td>true</td>
+</tr>
+<tr>
+<td>sendForm</td>
+<td>Boolean</td>
+<td>&#x8868;&#x5355;&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x662F;&#x5426;&#x9700;&#x8981;&#x63D0;&#x4EA4;&#x8868;&#x5355;</td>
+<td>true</td>
+</tr>
+<tr>
+<td>onKeyup</td>
+<td>Boolean</td>
+<td>&#x8F93;&#x5165;&#x653E;&#x5F00;&#x952E;&#x76D8;&#x7684;&#x65F6;&#x5019;,&#x662F;&#x5426;&#x9700;&#x8981;&#x9A8C;&#x8BC1;</td>
+<td>false</td>
+</tr>
+<tr>
+<td>firstInvalidFocus</td>
+<td>Boolean</td>
+<td>&#x672A;&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8868;&#x5355;&#x5143;&#x7D20;&#xFF0C;&#x662F;&#x5426;&#x8981;&#x83B7;&#x53D6;&#x7126;&#x70B9;</td>
+<td>true</td>
+</tr>
+<tr>
+<td>conditional</td>
+<td>Object</td>
+<td>&#x8F93;&#x5165;&#x57DF;&#x901A;&#x8FC7;data-conditional=&quot;name&quot;&#x5BF9;&#x5E94;&#x5230;conditional&#x4E2D;&#x5C5E;&#x6027;&#x7B49;&#x4E8E;name&#x7684;&#x51FD;&#x6570;</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>descriptions</td>
+<td>Object</td>
+<td>&#x8F93;&#x5165;&#x57DF;&#x901A;&#x8FC7;data-descriptions=&quot;name&quot;&#x5BF9;&#x5E94;&#x5230;descriptions&#x4E2D;&#x5C5E;&#x6027;&#x540D;&#x7B49;&#x4E8E;name&#x7684;&#x51FD;&#x6570;</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>eachField</td>
+<td>Function</td>
+<td>&#x8F93;&#x5165;&#x57DF;&#x5728;&#x6267;&#x884C;&#x9A8C;&#x8BC1;&#x4E4B;&#x524D;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>eachInvalidField</td>
+<td>Function</td>
+<td>&#x6240;&#x6709;&#x672A;&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#x7684;&#x8868;&#x5355;&#x8F93;&#x5165;&#x57DF;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;</td>
+<td>$.noop</td>
+</tr>
+<tr>
+<td>eachValidField</td>
+<td>Function</td>
+<td>&#x6240;&#x6709;&#x7684;&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#x7684;&#x8868;&#x5355;&#x8F93;&#x5165;&#x57DF;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;</td>
+<td>$.noop</td>
+</tr>
+<tr>
+<td>valid</td>
+<td>Function</td>
+<td>&#x70B9;&#x51FB;&#x201C;&#x63D0;&#x4EA4;&#x201D;&#x6309;&#x94AE;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x82E5;&#x8868;&#x5355;&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#xFF0C;&#x5C31;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;&#xFF01;</td>
+<td>$.noop</td>
+</tr>
+<tr>
+<td>invalid</td>
+<td>Function</td>
+<td>&#x70B9;&#x51FB;&#x201C;&#x63D0;&#x4EA4;&#x201D;&#x6309;&#x94AE;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x82E5;&#x8868;&#x5355;&#x672A;&#x901A;&#x8FC7;&#x9A8C;&#x8BC1;&#xFF0C;&#x5C31;&#x89E6;&#x53D1;&#x8BE5;&#x51FD;&#x6570;&#xFF01;</td>
+<td>$.noop</td>
+</tr>
+</tbody>
+</table>
+<h4 id="&#x62D3;&#x5C55;&#x65B9;&#x6CD5;"><a class="anchor" href="#&#x62D3;&#x5C55;&#x65B9;&#x6CD5;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&#x62D3;&#x5C55;&#x65B9;&#x6CD5;</h4>
+<table>
+<thead>
+<tr>
+<th>&#x65B9;&#x6CD5;</th>
+<th>&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$.validatorExtend</td>
+<td>&#x8BE5;&#x65B9;&#x6CD5;&#x7528;&#x6765;&#x62D3;&#x5C55;&#x4E00;&#x4E9B;&#x8F93;&#x5165;&#x57DF;&#x7684;&#x9A8C;&#x8BC1;,&#x4F8B;&#x5982;:data-validate=&quot;phone&quot;</td>
+</tr>
+</tbody>
+</table>
+<pre>
+$.validatorExtend({
+    phone:{
+        required : true,   
+        pattern : /^0?1[3|4|5|8][0-9]\d{8}$/,
+        each:function(){
+
+        },
+        descriptions:{
+            required : &apos;&#x5FC5;&#x586B;&#x5B57;&#x6BB5;&apos;,
+            pattern : &apos;&#x8BF7;&#x60A8;&#x8F93;&#x5165;&#x6B63;&#x786E;&#x7684;&#x683C;&#x5F0F;&apos;
+        }
+    }
+});
+</pre>
+
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code>&lt;form class=&quot;zform zform-radius&quot; action=&quot;https://www.baidu.com&quot; id=&quot;form2&quot;&gt;
+        &lt;fieldset class=&quot;zform-fieldset&quot;&gt;
+            &lt;div class=&quot;zform-control&quot;&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;input type=&quot;password&quot; class=&quot;field-text&quot; placeholder=&quot;&#x8BF7;&#x8F93;&#x5165;&#x7528;&#x6237;&#x540D;&quot; data-required=&quot;true&quot; data-descriptions=&quot;username&quot; data-describedby=&quot;username-description&quot;&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;username-description&quot;&gt;&lt;/div&gt;     
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control&quot;&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;input type=&quot;password&quot; id=&quot;pwd2&quot; class=&quot;field-text&quot; placeholder=&quot;&#x8BF7;&#x8F93;&#x5165;&#x5BC6;&#x7801;&quot; data-required=&quot;true&quot; data-descriptions=&quot;password&quot; data-describedby=&quot;password-description&quot;  data-conditional=&quot;pwd2&quot;&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;password-description&quot;&gt;&lt;/div&gt;    
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control&quot;&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;input type=&quot;password&quot; id=&quot;confirmpwd2&quot; class=&quot;field-text&quot;  placeholder=&quot;&#x518D;&#x6B21;&#x8F93;&#x5165;&#x5BC6;&#x7801;&#x786E;&#x8BA4;&quot; data-required=&quot;true&quot; data-descriptions=&quot;confirmpassword&quot; data-conditional=&quot;confirmpwd2&quot; data-describedby=&quot;confirmpassword-description&quot;&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;confirmpassword-description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control&quot;&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;field-text&quot; placeholder=&quot;&#x8BF7;&#x8F93;&#x5165;&#x624B;&#x673A;&#x53F7;&#x7801;&quot; data-validate=&quot;phone&quot; data-describedby=&quot;phone-description&quot;&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;phone-description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control&quot;&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;field-text&quot; placeholder=&quot;&#x8BF7;&#x8F93;&#x5165;&#x5E74;&#x9F84;&quot; data-pattern=&quot;^[0-9]+$&quot;  data-required=&quot;true&quot; data-descriptions=&quot;age&quot; data-describedby=&quot;age-description&quot;&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;age-description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control&quot;&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;select class=&quot;field-select&quot; data-required=&quot;true&quot; data-descriptions=&quot;address&quot; data-describedby=&quot;address-description&quot; placeholder=&quot;&#x8BF7;&#x9009;&#x62E9;&#x7701;&#x4E8B;&quot;&gt;
+                        &lt;option value=&quot;&quot;&gt;&lt;/option&gt;
+                        &lt;option value=&quot;1&quot;&gt;&#x6D59;&#x6C5F;&#x7701;&lt;/option&gt;
+                        &lt;option value=&quot;2&quot;&gt;&#x6D77;&#x5357;&#x7701;&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;address-description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control&quot;&gt;
+
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;textarea class=&quot;field-area&quot; placeholder=&quot;&#x4E2A;&#x4EBA;&#x7B80;&#x4ECB;&quot; rows=&quot;4&quot; data-required=&quot;true&quot; data-descriptions=&quot;intro&quot; data-describedby=&quot;intro-description&quot;&gt;&lt;/textarea&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;intro-description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control zform-control-radiocheck&quot;&gt;
+                &lt;label class=&quot;control-label&quot;&gt;&#x5174;&#x8DA3;&#x7231;&#x597D;&#xFF1A;&lt;/label&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;label&gt;
+                        &lt;input type=&quot;checkbox&quot;  name=&quot;favourite&quot; class=&quot;field-check zicon&quot; data-required=&quot;true&quot; data-descriptions=&quot;favourite&quot; data-describedby=&quot;favourite-description&quot;&gt;&#x7BEE;&#x7403;
+                    &lt;/label&gt;    
+                    &lt;label&gt;
+                        &lt;input type=&quot;checkbox&quot; name=&quot;favourite&quot; class=&quot;field-check zicon&quot; data-required=&quot;true&quot; data-descriptions=&quot;favourite&quot; data-describedby=&quot;favourite-description&quot;&gt;&#x8DB3;&#x7403;
+                    &lt;/label&gt;    
+                    &lt;label&gt;
+                        &lt;input type=&quot;checkbox&quot; name=&quot;favourite&quot; class=&quot;field-check zicon&quot; data-required=&quot;true&quot; data-descriptions=&quot;favourite&quot; data-describedby=&quot;favourite-description&quot;&gt;&#x6392;&#x7403;
+                    &lt;/label&gt;
+                    &lt;label&gt;
+                        &lt;input type=&quot;checkbox&quot; name=&quot;favourite&quot; class=&quot;field-check zicon&quot; data-required=&quot;true&quot; data-descriptions=&quot;favourite&quot; data-describedby=&quot;favourite-description&quot;&gt;&#x4E52;&#x4E53;&#x7403;
+                    &lt;/label&gt;    
+                &lt;/div&gt;
+                &lt;div id=&quot;favourite-description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;zform-control zform-control-radiocheck&quot;&gt;
+                &lt;label class=&quot;control-label&quot;&gt;&#x6027;&#x522B;&#xFF1A;&lt;/label&gt;
+                &lt;div class=&quot;control-field&quot;&gt;
+                    &lt;label&gt;
+                        &lt;input type=&quot;radio&quot; name=&quot;sex&quot; class=&quot;field-radio  zicon&quot; data-required=&quot;true&quot;  data-descriptions=&quot;sex&quot; data-describedby=&quot;sex-description&quot;&gt;&#x7537;
+                    &lt;/label&gt;    
+                    &lt;label&gt;
+                        &lt;input type=&quot;radio&quot;  name=&quot;sex&quot; class=&quot;field-radio  zicon&quot; data-required=&quot;true&quot; data-descriptions=&quot;sex&quot; data-describedby=&quot;sex-description&quot;&gt;&#x5973;
+                    &lt;/label&gt;    
+                &lt;/div&gt;
+                &lt;div id=&quot;sex-description&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/fieldset&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;&#x63D0;&#x4EA4;&quot; class=&quot;zbtn zbtn-primary zbtn-full zbtn-lg&quot;&gt;   
+  &lt;/form&gt;
+</code></pre><p>JavaScript:</p>
+<pre><code>require([&apos;components/validator&apos;], function(Validtor) {
+
+  $.validatorExtend({
+      // &#x6269;&#x5C55;data-validate&#x65B9;&#x5F0F;
+      phone:{
+          // &#x5FC5;&#x586B;
+          required : true,
+          // &#x9A8C;&#x8BC1;&#x6B63;&#x5219;   
+          pattern : /^0?1[3|4|5|8][0-9]\d{8}$/,
+          each:function(){
+
+          },
+          // &#x9519;&#x8BEF;&#x63D0;&#x793A;
+          descriptions:{
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x5FC5;&#x586B;&#x5B57;&#x6BB5;&lt;/div&gt;&apos;,
+              pattern : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x60A8;&#x8F93;&#x5165;&#x6B63;&#x786E;&#x7684;&#x683C;&#x5F0F;&lt;/div&gt;&apos;,
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x6B63;&#x786E;&lt;/div&gt;&apos;
+          }
+      }
+  });
+
+  $(&quot;#form2&quot;).validator({
+      type:2,
+      onKeyup:true,
+      sendForm:true,
+      firstInvalidFocus:true,
+      eachField:function(){
+
+      },
+      valid:function(){
+
+      },
+      invalid:function(){
+
+      },
+      eachValidField:function(){
+
+      },
+      eachInvalidField:function(){
+
+
+      },
+      // &#x9644;&#x52A0;&#x6761;&#x4EF6;
+      conditional:{
+           pwd2:function(event,options){
+              var flag=true,
+                  pwdVal=$.trim($(&quot;#pwd2&quot;).val()),
+                  confirmVal=$.trim($(&quot;#confirmpwd2&quot;).val());
+              //&#x5224;&#x65AD;&#x786E;&#x8BA4;&#x5BC6;&#x7801;&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x4E0D;&#x4E3A;&#x7A7A;&#x7684;&#x65F6;&#x5019;,&#x7136;&#x540E;&#x548C;&#x5F53;&#x524D;&#x5BF9;&#x6BD4;, &#x4E3A;&#x7A7A;&#x5C31;&#x662F;&#x6B63;&#x5E38;&#x9A8C;&#x8BC1;
+              if(!!confirmVal){
+                  flag=(confirmVal==pwdVal) ? true :false;
+                  if(!flag){
+                      $(&quot;#confirmpassword-description .zvalid-resultformat&quot;).html(options.descriptions.confirmpassword.conditional)
+                  }else{
+                       $(&quot;#confirmpassword-description .zvalid-resultformat&quot;).html(options.descriptions.confirmpassword.valid)
+                  }     
+              }
+              return flag;
+          },
+          confirmpwd2:function(){
+              // &#x4E24;&#x6B21;&#x5BC6;&#x7801;&#x662F;&#x5426;&#x4E00;&#x81F4;
+              return $(&quot;#pwd2&quot;).val()==$(&quot;#confirmpwd2&quot;).val();
+          }
+      },
+      // &#x9519;&#x8BEF;&#x63D0;&#x793A;
+      descriptions:{
+          username:{
+              // &#x5FC5;&#x586B;
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x8F93;&#x5165;&#x7528;&#x6237;&#x540D;&lt;/div&gt;&apos;,
+              // &#x9A8C;&#x8BC1;&#x901A;&#x8FC7;
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          },
+          age : {
+              // &#x5FC5;&#x586B;
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x8F93;&#x5165;&#x5E74;&#x9F84;&lt;/div&gt;&apos;,
+              // &#x81EA;&#x5B9A;&#x4E49;&#x6B63;&#x5219;
+              pattern : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x4F60;&#x8F93;&#x5165;&#x7684;&#x683C;&#x5F0F;&#x4E0D;&#x6B63;&#x786E;&lt;/div&gt;&apos;,
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          },
+          password:{
+               required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x8F93;&#x5165;&#x5BC6;&#x7801;&lt;/div&gt;&apos;,
+               // &#x9644;&#x52A0;&#x6761;&#x4EF6;
+               conditional : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;,
+               valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          },
+          confirmpassword:{
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x518D;&#x6B21;&#x8F93;&#x5165;&#x5BC6;&#x7801;&lt;/div&gt;&apos;,
+              conditional : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x4E24;&#x6B21;&#x5BC6;&#x7801;&#x4E0D;&#x4E00;&#x6837;&lt;/div&gt;&apos;,
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          },
+          address:{
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x9009;&#x62E9;&#x5730;&#x5740;&lt;/div&gt;&apos;,
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          },
+          intro:{
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x8F93;&#x5165;&#x4E2A;&#x4EBA;&#x4ECB;&#x7ECD;&lt;/div&gt;&apos;,
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          },
+          favourite:{
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x9009;&#x62E9;&#x4E2A;&#x4EBA;&#x7231;&#x597D;&lt;/div&gt;&apos;,
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          },
+          sex:{
+              required : &apos;&lt;div class=&quot;field-invalidmsg&quot;&gt;&#x8BF7;&#x8F93;&#x5165;&#x6027;&#x522B;&lt;/div&gt;&apos;,
+              valid : &apos;&lt;div class=&quot;field-validmsg&quot;&gt;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&lt;/div&gt;&apos;
+          }
+      }
+  });
+});
+</code></pre>
+    </div>
+
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/document.js"></script>
+</body>
+</html>
