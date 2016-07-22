@@ -1,0 +1,162 @@
+/*
+ *  翼虎网 
+ *  app: 艺术与设计主题;
+ *  created by tomieric
+ *  v1.0
+ *  2014-04-15
+ **/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font: inherit; font-size: 100%; vertical-align: baseline; }
+ body{
+ 	font-family: "Hiragino Sans GB","Droid Sans Fallback" "Rounded MT Bold","\5FAE\8F6F\96C5\9ED1",tahoma,"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+     -webkit-user-select:none;
+     -webkit-font-smoothing:antialiased;
+ }
+ ul,li{ list-style: none; margin: 0; padding: 0;}
+
+/* 头部 */
+.app-header .topcoat-navigation-bar{
+	padding: 1em 0 0 0;
+	height: 60px;
+	background: #1284ff;
+	color: #ffffff;
+}
+
+/* 标题颜色 */
+.topcoat-navigation-bar__title{
+	color: #fff;
+}
+
+.page{
+	background: #fff;
+}
+.app-content{
+    padding: 1em;
+}
+.topcoat-navigation-bar__bg{
+    background: transparent;
+}
+.app-header .topcoat-icon-button--quiet{
+    color: #fff;
+}
+/* -- 首页slide start -- */
+.focus{ width:320px; height:150px;  margin:0 auto; position:relative; overflow:hidden;   }
+.focus .hd{ width:100%; height:3px;  position:absolute; z-index:1; bottom: 5px; text-align:center;  }
+.focus .hd ul{ margin: 0 auto; width: 20%; overflow:hidden; display:-moz-box; display:-webkit-box; display:box; height:3px;    }
+.focus .hd ul li{ background-color:rgba(255,255,255,0.5); -moz-box-flex:1; -webkit-box-flex:1; box-flex:1; margin: 0 2px; font-size: 0; line-height: 0 }
+.focus .hd ul .on{ background-color:rgba(255,255,255,0.9);  }
+.focus .bd{ position:relative; z-index:0; }
+.focus .bd li img{ display: block; width:100%;  min-height:150px; }
+.focus .bd li a{ display: block; position: relative; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); height: 150px; /* 取消链接高亮 */ }
+.focus .bd li a span{
+    position: absolute;
+    left: 10px;
+    bottom: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(51, 51, 51, .5);
+}
+
+/* -- 首页slide end -- */
+
+/* 分类订阅列表 start */
+.cate-list{
+	overflow: hidden;
+    border-top: 1px solid #ccc;
+}
+.cate-list li{
+	float: left;
+    padding: 1em 0;
+	width: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-width: 0 1px 1px 0;
+}
+.cate-list li:nth-child(2n){
+    border-width: 0 0 1px 0;
+}
+.cate-text{
+    padding-top: 0.3em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* 分类订阅列表 end */
+
+/* ---
+    推荐页 start
+--- */
+.article-item{
+    margin: 1em;
+    padding: .5em 0;
+    border-bottom: 1px solid #ccc;
+}
+.article-item__title{
+    font-weight: 700;
+    margin-bottom: .5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.article-item__content{
+    margin-top: 1em;
+}
+.article-item__content img{
+    min-height: 80px;
+    background: #f5f5f5;
+}
+.article-item__tag{
+    display: inline-block;
+    margin-left: 2em;
+    font-style: normal;
+    font-size: 0.6em;
+    padding: .2em .5em;
+}
+.hot{
+    background: #f2bc00;
+    color: #fff;
+}
+.article-item__pubdate{
+    margin-left: 1em;
+}
+.article-item__gallery{
+    -webkit-display: box;
+    display: box;
+    -webkit-display: flex;
+    display: flex;
+}
+.article-item__gallery a{
+    -webkit-box: 1;
+    box: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding-right: .5em;
+}
+.article-item__gallery img{
+    display: block;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+.article-item__post img{
+    width: 100%;
+}
+/* ---
+    推荐页 end
+--- */
+
+/* ---
+    设置页 start
+--- */
+.opcoat-list__item__divider{
+    height: 1em;
+    line-height: 1em;
+    min-height: 1em;
+    background: #f5f5f5;
+}
+.topcoat-list__item__ricon{
+    float: right;
+    margin: 5px 10px 0 0;
+}
+/* ---
+    设置页 end
+--- */

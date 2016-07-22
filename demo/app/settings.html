@@ -1,0 +1,25 @@
+<ons-navigator title="设置" class="app-header">
+    <ons-page>
+        <ons-scroller>
+            <ons-list>
+                <ons-list-item class="topcoat-list__item__line-height" ng-click="ons.navigator.pushPage('favorite.html', {title: '我的收藏'})">
+                    我的收藏
+                    <ons-icon icon="angle-right" size="2x" class="topcoat-list__item__ricon"></ons-icon>
+                </ons-list-item>
+                <ons-list-item class="topcoat-list__item__line-height">
+                    推荐给好友
+                    <ons-icon icon="angle-right" size="2x" class="topcoat-list__item__ricon"></ons-icon>
+                </ons-list-item>
+                <ons-list-item class="topcoat-list__item__line-height opcoat-list__item__divider"></ons-list-item>
+                <ons-list-item class="topcoat-list__item__line-height" ng-click="ons.screen.presentPage('about.html')">
+                    关于艺术与设计 v1.0
+                    <ons-icon icon="angle-right" size="2x" class="topcoat-list__item__ricon"></ons-icon>
+                </ons-list-item>
+                <ons-list-item class="topcoat-list__item__line-height" ng-click="ons.screen.presentPage('feedback.html')">
+                    提提意见
+                    <ons-icon icon="angle-right" size="2x" class="topcoat-list__item__ricon"></ons-icon>
+                </ons-list-item>
+            </ons-list>
+        </ons-scroller>
+    </ons-page>
+</ons-navigator>

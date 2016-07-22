@@ -1,0 +1,17 @@
+<ons-navigator title="推荐" class="app-header">
+    <ons-page>
+        <ons-scroller>
+            <div ng-controller="recommendCtrl">
+                <article class="article-item" ng-repeat="article in articles">
+                    <header>
+                        <h2 class="article-item__title" ng-present-page ng-attr-tourl="detail.html?id={{article.id}}">{{article.title}}</h2>
+                        <p class="article-item__meta">{{article.author}} <time data-time="{{article.pubdate}}" class="article-item__pubdate">{{article.pubdate}}</time> <em class="article-item__tag hot" ng-if="article.tag">{{article.tag}}</em></p>
+                    </header>
+                    <div class="article-item__content article-item__gallery" ng-if="article.poster.length">
+                        <a ng-repeat="ps in article.poster track by $index" ng-present-page ng-attr-tourl="detail.html?id={{article.id}}"><img src="{{ps}}" alt=""/></a>
+                    </div>
+                </article>
+            </div>
+        </ons-scroller>
+    </ons-page>
+</ons-navigator>

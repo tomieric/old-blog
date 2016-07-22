@@ -1,0 +1,23 @@
+<ons-navigator title="提提意见" class="app-header" left-button-icon="fa fa-angle-left fa-2x" on-left-button-click="ons.screen.dismissPage()">
+    <ons-scroller>
+        <ons-page>
+            <div class="app-content">
+                <ons-text-input
+                        ng-model="text"
+                        placeholder="您的邮箱"
+                        style="display: block; width: 100%">
+                </ons-text-input>
+                <ons-text-area
+                        ng-model="text"
+                        placeholder="意见反馈..."
+                        style="width: 100%; height: 100px; margin-top: 1em">
+                </ons-text-area>
+                <ons-button
+                        type="cta-large"
+                        style="display: block; width: 100%; margin-top: 8px;">
+                    提交
+                </ons-button>
+            </div>
+        </ons-page>
+    </ons-scroller>
+</ons-navigator>

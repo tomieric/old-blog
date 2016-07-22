@@ -1,0 +1,25 @@
+<ons-page class="center">
+	<ons-navigator-toolbar
+		title="New">
+	</ons-navigator-toolbar>
+
+	<h1>New Page</h1>
+
+	<ons-button ng-click="ons.screen.dismissPage();">
+		Pop Page
+	</ons-button>
+    <ons-tabbar>
+        <ons-tabbar-item
+                icon="fa fa-mail-reply"
+                ng-click="ons.screen.dismissPage();"></ons-tabbar-item>
+
+        <ons-tabbar-item
+                icon="fa fa-thumbs-up"></ons-tabbar-item>
+
+        <ons-tabbar-item
+                icon="fa fa-share-square-o"></ons-tabbar-item>
+        <ons-tabbar-item
+                icon="fa fa-comments"
+                ng-click="ons.screen.presentPage('comment.html')"></ons-tabbar-item>
+    </ons-tabbar>
+</ons-page>

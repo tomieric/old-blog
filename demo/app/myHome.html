@@ -1,0 +1,33 @@
+<ons-page class="center">
+	<ons-scroller>
+        <div ng-controller="homeCtrl">
+            <!-- slide -->
+            <ng-slide ng-attr-id="slide"></ng-slide>
+            <!-- 分类列表 -->
+            <div class="feed-cate">
+                <ul class="cate-list">
+                    <li ng-repeat="channel in channels">
+                        <a ng-present-page ng-attr-url="detail.html">
+                            <ons-icon icon="bars"></ons-icon>
+                            <div class="cate-text">{{channel.title}}</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 频道精选 -->
+            <section class="app-home-channel">
+                <header class="app-mod-hd">
+                    <h3 ng-click="onsen.screen.presentPage('cate.html?id=222')">频道精选</h3>
+                </header>
+                <ul class="app-listview">
+                    <li>
+                        <a href="###">
+                            <img src="" alt=""/>
+                            <span>平面设计</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+	</ons-scroller>
+</ons-page>

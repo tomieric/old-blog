@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>艺术与设计</title>  
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+   <!--全屏-->
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+
+  
+  <link rel="stylesheet" href="lib/onsen/css/onsenui.css">  
+  <link rel="stylesheet" href="lib/onsen/css/topcoat-mobile-onsen-ios7.css">  
+  <link rel="stylesheet" href="styles/app.css"/>
+  <script src="lib/touchslide/TouchSlide.1.1.js"></script>
+  <script src="lib/onsen/js/angular/angular.js"></script>    
+  <script src="lib/onsen/js/onsenui.js"></script>    
+  <script src="js/app.js"></script> 
+  
+</head>
+
+<body>    
+  <!-- 屏幕显示区域 -->
+  <ons-screen>
+	<!--底部tab菜单-->
+    <ons-tabbar>
+      <!-- 
+      	菜单项： 主页
+      	active: 选中
+      	label: 标签名字
+      	icon: 图标
+      	page: 对应加载的url
+      -->
+      <ons-tabbar-item
+              active="true"
+              label="主页"
+              icon="home"
+              page="home.html"></ons-tabbar-item>
+
+      <ons-tabbar-item
+          label="推荐"
+              icon="star"
+              page="recommend.html"></ons-tabbar-item>
+
+      <ons-tabbar-item
+          label="发现"
+              icon="compass"
+              page="square.html"></ons-tabbar-item>
+      <ons-tabbar-item
+          label="我的"
+              icon="user"
+              page="settings.html"></ons-tabbar-item>
+    </ons-tabbar>
+    
+  </ons-screen>
+  
+</body>
+</html>
